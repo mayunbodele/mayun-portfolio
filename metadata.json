@@ -1,0 +1,6 @@
+{
+  "name": "Mayun Bodele Portfolio",
+  "description": "A premium, futuristic portfolio website for Mayun Bodele, Product Manager at Lowe's.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
