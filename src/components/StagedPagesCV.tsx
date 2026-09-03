@@ -44,8 +44,8 @@ export default function StagedPagesCV({
               : "bg-white border-slate-200 text-slate-800 shadow-slate-900/10"
           } ${
             aesthetic === "compact" 
-              ? "p-6 md:p-10 leading-snug min-h-[960px] max-h-[960px] overflow-hidden" 
-              : "p-8 md:p-14 leading-relaxed min-h-[1080px] max-h-[1080px] overflow-hidden"
+              ? "p-6 md:p-10 leading-snug min-h-[960px]" 
+              : "p-8 md:p-14 leading-relaxed min-h-[1080px]"
           } print:min-h-0 print:max-h-none print:border-none print:shadow-none print:m-0 print:p-0`}
         >
           <div>
@@ -204,46 +204,48 @@ export default function StagedPagesCV({
                   Featured Professional Experience
                 </h2>
 
-                {adaptExperiences.filter(e => e.id === "lowes").map((exp) => (
-                  <div key={exp.id} className="transition-all duration-300">
-                    <div className="flex flex-wrap items-baseline justify-between gap-1 mb-1.5">
-                      <h3 className="text-[11px] sm:text-xs font-black text-slate-950 dark:text-slate-100">
-                        {exp.company} <span className="text-slate-400 font-normal">|</span> <span className="text-emerald-500 font-bold">{exp.role}</span>
-                      </h3>
+                <div className="space-y-3.5">
+                  {adaptExperiences.filter(e => e.id === "wrth" || e.id === "lowes").map((exp) => (
+                    <div key={exp.id} className="transition-all duration-300">
+                      <div className="flex flex-wrap items-baseline justify-between gap-1 mb-1">
+                        <h3 className="text-[11px] sm:text-xs font-black text-slate-950 dark:text-slate-100">
+                          {exp.company} <span className="text-slate-400 font-normal">|</span> <span className="text-emerald-500 font-bold">{exp.role}</span>
+                        </h3>
 
-                      <div className="flex items-center gap-1.5 text-[9px] text-slate-500 font-bold">
-                        {exp.matchedCount > 0 && (
-                          <span className="px-1 py-0.2 bg-emerald-500/15 text-emerald-400 border border-emerald-500/25 rounded font-mono text-[8px]">
-                            {exp.matchedCount} traces
-                          </span>
-                        )}
-                        <span>{exp.dates}</span>
+                        <div className="flex items-center gap-1.5 text-[9px] text-slate-500 font-bold">
+                          {exp.matchedCount > 0 && (
+                            <span className="px-1 py-0.2 bg-emerald-500/15 text-emerald-400 border border-emerald-500/25 rounded font-mono text-[8px]">
+                              {exp.matchedCount} traces
+                            </span>
+                          )}
+                          <span>{exp.dates}</span>
+                        </div>
                       </div>
-                    </div>
 
-                    <ul className={`list-disc pl-4 space-y-0.5 text-justify ${
-                      isDarkCanvas ? "text-slate-300" : "text-slate-650"
-                    } ${aesthetic === "compact" ? "text-[9.5px]" : "text-[10.5px]"}`}>
-                      {exp.bullets.map((bullet, idx) => {
-                        const containsMatched = activeTraceKeywords.length > 0 && activeTraceKeywords.some(key => bullet.toLowerCase().includes(key));
-                        return (
-                          <li
-                            key={idx}
-                            className={`transition-all duration-150 ${
-                              containsMatched 
-                                ? (isDarkCanvas 
-                                    ? "text-emerald-300 pl-1 border-l border-emerald-500 font-medium bg-emerald-500/5 py-0.1 rounded" 
-                                    : "text-emerald-950 pl-1 border-l-2 border-emerald-600 font-semibold bg-emerald-50/50 py-0.1 rounded")
-                                : ""
-                            }`}
-                          >
-                            {highlightContentText(bullet)}
-                          </li>
-                        );
-                      })}
-                    </ul>
-                  </div>
-                ))}
+                      <ul className={`list-disc pl-4 space-y-0.5 text-justify ${
+                        isDarkCanvas ? "text-slate-300" : "text-slate-650"
+                      } ${aesthetic === "compact" ? "text-[9.5px]" : "text-[10.5px]"}`}>
+                        {exp.bullets.map((bullet, idx) => {
+                          const containsMatched = activeTraceKeywords.length > 0 && activeTraceKeywords.some(key => bullet.toLowerCase().includes(key));
+                          return (
+                            <li
+                              key={idx}
+                              className={`transition-all duration-150 ${
+                                containsMatched 
+                                  ? (isDarkCanvas 
+                                      ? "text-emerald-300 pl-1 border-l border-emerald-500 font-medium bg-emerald-500/5 py-0.1 rounded" 
+                                      : "text-emerald-950 pl-1 border-l-2 border-emerald-600 font-semibold bg-emerald-50/50 py-0.1 rounded")
+                                  : ""
+                              }`}
+                            >
+                              {highlightContentText(bullet)}
+                            </li>
+                          );
+                        })}
+                      </ul>
+                    </div>
+                  ))}
+                </div>
               </section>
             )}
           </div>
@@ -267,8 +269,8 @@ export default function StagedPagesCV({
               : "bg-white border-slate-200 text-slate-800 shadow-slate-900/10"
           } ${
             aesthetic === "compact" 
-              ? "p-6 md:p-10 leading-snug min-h-[960px] max-h-[960px] overflow-hidden" 
-              : "p-8 md:p-14 leading-relaxed min-h-[1080px] max-h-[1080px] overflow-hidden"
+              ? "p-6 md:p-10 leading-snug min-h-[960px]" 
+              : "p-8 md:p-14 leading-relaxed min-h-[1080px]"
           } print:min-h-0 print:max-h-none print:border-none print:shadow-none print:m-0 print:p-0 print:break-before-page break-before-page page-break`}
         >
           <div>
@@ -280,8 +282,8 @@ export default function StagedPagesCV({
 
             <div className="space-y-4">
               {focus === "academic" ? (
-                /* Academic focuses Lowe's + Attribute on Page 2 */
-                adaptExperiences.filter(e => e.id === "lowes" || e.id === "attribute").map((exp) => {
+                /* Academic focuses WRTH + Lowe's + Attribute on Page 2 */
+                adaptExperiences.filter(e => e.id === "wrth" || e.id === "lowes" || e.id === "attribute").map((exp) => {
                   return (
                     <div key={exp.id} className="transition-all duration-200">
                       <div className="flex flex-wrap items-baseline justify-between gap-1 mb-1">
@@ -310,8 +312,8 @@ export default function StagedPagesCV({
                   );
                 })
               ) : (
-                /* Default places remaining 3 roles: Attribute, FoodTrace, KPranali */
-                adaptExperiences.filter(e => e.id !== "lowes").map((exp) => {
+                /* Default places remaining roles: Attribute Analytics & K Pranali */
+                adaptExperiences.filter(e => e.id !== "wrth" && e.id !== "lowes").map((exp) => {
                   return (
                     <div
                       key={exp.id}
@@ -380,8 +382,8 @@ export default function StagedPagesCV({
               : "bg-white border-slate-200 text-slate-800 shadow-slate-900/10"
           } ${
             aesthetic === "compact" 
-              ? "p-6 md:p-10 leading-snug min-h-[960px] max-h-[960px] overflow-hidden" 
-              : "p-8 md:p-14 leading-relaxed min-h-[1080px] max-h-[1080px] overflow-hidden"
+              ? "p-6 md:p-10 leading-snug min-h-[960px]" 
+              : "p-8 md:p-14 leading-relaxed min-h-[1080px]"
           } print:min-h-0 print:max-h-none print:border-none print:shadow-none print:m-0 print:p-0 print:break-before-page break-before-page page-break`}
         >
           <div>
@@ -393,7 +395,7 @@ export default function StagedPagesCV({
                 } ${aesthetic === "compact" ? "text-[10px] mb-1.5" : "text-[11px] mb-2.5"}`}>
                   Supporting Professional Context (Academic Focus)
                 </h2>
-                {adaptExperiences.filter(e => e.id === "foodtrace" || e.id === "kpranali").map((exp) => (
+                {adaptExperiences.filter(e => e.id === "kpranali").map((exp) => (
                   <div key={exp.id} className="opacity-75 pl-3 border-l border-slate-700/50">
                     <div className="flex justify-between items-baseline font-bold text-[11px] sm:text-xs">
                       <h4 className={isDarkCanvas ? "text-slate-200" : "text-slate-900"}>{exp.company} - <span className="text-emerald-500">{exp.role}</span></h4>

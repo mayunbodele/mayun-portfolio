@@ -38,41 +38,55 @@ interface InteractiveCVProps {
 // Full mapping of Resume Skills to keywords found inside the professional experiences/projects
 const SKILL_KEYWORDS: Record<string, string[]> = {
   // Product Management & Delivery
-  "Product Roadmapping": ["roadmap", "roadmaps", "priorit", "scope", "deliv", "vision", "milestone"],
+  "PRDs": ["prd", "prds", "specs", "requirements", "acceptance criteria"],
+  "0-to-1 Product Development": ["0-to-1", "founded", "zero", "launched", "discovery", "new retail", "from zero"],
+  "Product Roadmapping": ["roadmap", "roadmaps", "priorit", "prioritization", "scope", "deliv", "vision", "milestone"],
   "Agile / Scrum": ["agile", "scrum", "sprint", "grooming", "epic", "stories", "jira", "confluence", "velocity", "backlog"],
   "Backlog Prioritization": ["backlog", "grooming", "priorit", "roadmap", "prioritization", "scope"],
-  "User Stories & Acceptance Criteria": ["stories", "acceptance", "criteria", "epics", "jira", "confluence"],
+  "User Stories & Acceptance Criteria": ["stories", "acceptance", "criteria", "epics", "jira", "confluence", "specs", "edge cases"],
   "Sprint Planning": ["sprint", "planning", "grooming", "bi-weekly", "velocity"],
-  "User Acceptance Testing (UAT)": ["uat", "testing", "defect", "responses", "postman", "qa", "assertions", "validation"],
-  "Product Lifecycle Management": ["lifecycle", "concept", "roadmap", "launch", "releases", "discovery-to-delivery"],
-  "Stakeholder Management": ["stakeholder", "partner", "coordinate", "align", "dependencies"],
-  "Risk Identification": ["risk", "issue", "dependenc", "friction"],
+  "User Acceptance Testing (UAT)": ["uat", "testing", "test cases", "defect", "defects", "responses", "postman", "qa", "validation"],
+  "Physical Product Launch": ["physical", "hardware", "terminal", "pos", "retail", "stores", "rollout", "s700", "in-store"],
+  "Stakeholder Management": ["stakeholder", "stakeholders", "partner", "partnered", "external vendor", "cross-functional", "coordinate", "align", "dependencies"],
+
+  // Hardware & Physical Product
+  "POS Hardware Selection & Rollout": ["pos", "hardware", "terminal", "s700", "rollout", "device", "physical hardware"],
+  "Device Deployment": ["device", "rollout", "in-store", "setup", "pilot", "general availability"],
+  "Cross-Channel Inventory Management": ["inventory", "cross-channel", "in-store", "stores"],
+  "Physical Retail Operations": ["physical", "retail", "stores", "in-store setup", "merchant accounts"],
+  "Marketplace Integrations": ["marketplace", "merchant", "accounts", "integrations", "partner"],
+  "Checkout Optimization": ["checkout", "conversion", "friction", "pos", "payments", "transactions"],
+
+  // Payments & Commerce
+  "Stripe (Terminal, Connect)": ["stripe", "terminal", "s700", "connect", "payments"],
+  "Payment Flows": ["payment", "payments", "pos", "transactions", "checkout", "payout"],
+  "Fee Routing & Vendor Payouts": ["payout", "payouts", "fee", "revenue model", "vendor", "external vendor"],
+  "Refunds & RBAC": ["refunds", "refund", "rbac", "compliance", "validation rules", "contracts"],
 
   // Data & Analytics
   "SQL (PostgreSQL, MySQL)": ["sql", "postgresql", "mysql", "databases", "query", "queries"],
   "Power BI": ["power bi", "dashboard", "dashboards"],
   "Tableau": ["tableau"],
+  "Adobe Analytics": ["adobe analytics", "analytics", "funnel", "session"],
+  "GA4": ["ga4", "analytics", "behavior", "user drop-offs"],
+  "Looker": ["looker"],
   "Advanced Excel": ["excel"],
+  "PowerPoint": ["powerpoint", "stakeholders", "presentation"],
   "Data Analysis": ["analysis", "analytic", "data", "metric", "kpi", "behavior", "analytics"],
-  "Dashboard Development": ["dashboard", "dashboards", "charts", "visual"],
-  "KPI Definition": ["kpi", "performance", "metrics", "kpis"],
-  "Product Performance Monitoring": ["performance", "adobe analytics", "kpi", "kpis", "monitored"],
-  "Funnel Analysis": ["funnel", "drop-off", "session analysis"],
+  "Dashboard Development": ["dashboard", "dashboards", "tracking", "kpis"],
+  "KPI Definition": ["kpi", "kpis", "performance", "metrics", "13 kpis"],
+  "A/B Testing": ["a/b testing", "a/b", "experiment", "conversion", "retention"],
+  "Funnel Analysis": ["funnel", "drop-offs", "drop-off", "session data", "task completion", "conversion points"],
 
   // Systems & Tools
   "Jira": ["jira"],
   "Confluence": ["confluence"],
-  "Visio": ["visio"],
-  "Postman": ["postman", "rest", "api", "apis"],
-  "ERP & Enterprise Platforms": ["enterprise", "platforms"],
-
-  // AI & Emerging Technologies
-  "Claude": ["claude"],
-  "GPT": ["gpt"],
-  "LLM Integration": ["llm", "large language", "ai-powered", "recommendation"],
-  "Workflow Automation": ["workflow", "automation", "automate", "efficiency", "streamlined"],
-  "Recommendation Engines": ["recommendation", "algorithms", "predictive"],
-  "Predictive Analytics": ["predictive", "analytics"]
+  "Figma": ["figma", "ui/ux", "design", "front-end"],
+  "Visio": ["visio", "workflow", "workflows"],
+  "Postman": ["postman", "rest", "api", "apis", "microservices"],
+  "ERP & Enterprise Platforms": ["enterprise", "platforms", "erp"],
+  "PIM Systems": ["pim", "inventory", "catalog"],
+  "CRM Platforms": ["crm", "merchant", "accounts"]
 };
 
 export default function InteractiveCV({ isDark, onClose, onSwitchToPrint }: InteractiveCVProps) {
@@ -224,19 +238,19 @@ ${resumeData.certifications.join(", ")}
   const adaptExperiences = useMemo(() => {
     return resumeData.experience.map(exp => {
       const companyUpper = exp.company.toUpperCase();
+      const isWrth = companyUpper.includes("WRTH");
       const isLowe = companyUpper.includes("LOWE");
-      const isPranali = companyUpper.includes("PRANALI");
-      const isFood = companyUpper.includes("FOOD");
       const isAttr = companyUpper.includes("ATTRIBUTE");
+      const isPranali = companyUpper.includes("PRANALI");
 
       let emphasis = true;
       let badgeLabel = "Industry PM";
 
       if (focus === "pm") {
-        emphasis = isLowe || isPranali;
+        emphasis = isWrth || isLowe || isPranali;
         badgeLabel = emphasis ? "Core PM" : "Supporting Context";
       } else if (focus === "analyst") {
-        emphasis = isFood || isAttr;
+        emphasis = isAttr || isPranali;
         badgeLabel = emphasis ? "Core Analytics" : "PM Context";
       } else if (focus === "academic") {
         emphasis = false; // Academic focus puts education timeline on top

@@ -155,7 +155,8 @@ export default function App() {
   const [isDark, setIsDark] = useState(true);
   const [activeSection, setActiveSection] = useState("home");
   const [expandedExperience, setExpandedExperience] = useState<Record<string, boolean>>({
-    lowes: true, // expand Lowe's by default
+    wrth: true,
+    lowes: true,
   });
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [scrollbarPercentage, setScrollbarPercentage] = useState(0);
@@ -220,9 +221,9 @@ export default function App() {
 
   // Top list for quick impact
   const topImpactMetrics = [
-    { value: "500K+", label: "Digital Users (Homecare+)", sub: "Seamless omnichannel scale" },
-    { value: "35%", label: "Post-Release Defect Drop", sub: "REST API microservices UAT validation" },
-    { value: "42%", label: "User Engagement Increase", sub: "Fintech roadmap & core feature updates" },
+    { value: "0-to-1", label: "Physical Stores Line Founded", sub: "7+ PRDs across POS, payments & inventory" },
+    { value: "500K+", label: "Digital Users (Homecare+)", sub: "Seamless omnichannel scale at Lowe's" },
+    { value: "35%", label: "Post-Release Defect Drop", sub: "140+ REST API microservices UAT test cases" },
   ];
 
   if (showSplash) {
@@ -412,7 +413,7 @@ export default function App() {
                 }`}
               >
                 <Sparkles size={12} className="animate-pulse" />
-                <span>Latest Product Highlight: HomeCare+ at Lowe's</span>
+                <span>Latest Role: Founding Product Manager at WRTH</span>
               </motion.div>
 
               <motion.div 
